@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}RssCollector{% endblock %}
+{% block navbar %}
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">S
+                <a class="navbar-brand" href="">RssCollector:get rss links update</a>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="page-header">
+            <h3>RssCollector信息收集</h3>
+            <div class="container" style="margin-top: 60px"></div>
+            <div class="container-fluid">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li class="alert-info" style="font-size: 18px">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    </div>
+    </div>
+    {{ super() }}
+{% endblock %}
+

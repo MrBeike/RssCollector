@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Info Query{% endblock %}
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="page-header">
+            <h3>RssCollector信息查询</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h3 class="text-left">请选择信息筛选条件，然后点击筛选按钮</h3>
+                        <form class="text-center" action="" method="post" novalidate>
+                            <select name="type"><!--时间类型-->
+                                <option value="add_time" selected="selected">信息添加时间</option>
+                                <option value="publish_time" >信息发布时间</option>
+                            </select>
+                            <select name="position"><!--时间界限-->
+                                <option value="before">在选定日期之前</option>
+                                <option value="at" selected="selected">等于选定日期</option>
+                                <option value="after">在选定日期之后</option>
+                            </select>
+                            <input class="Wdate" type="text" id="date" name="date" placeholder="选择日期(可选项)"
+                                   onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd'})">
+                            <input type="text" id="keyword" name="keyword" placeholder="关键词(可选项)">
+                            <button type="submit" formaction="{{ url_for('query') }}" class="btn btn-warning">筛选
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                {% if result %}
+                    <table class="table">
+                        <thead>
+                        <tr class="text-center">
+                            <th scope="col" class="text-center">Title</th>
+                            <th scope="col" class="text-center">Published_Date</th>
+                            <th scope="col" class="text-center">Link</th>
+                            <th scope="col" class="text-center">Added_Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in result %}
+                            <tr class="text-center">
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td><a href="{{ item[3] }} " target="_blank">点击访问原文</a></td>
+                                <td>{{ item[4] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+     <div class="container" style="margin-top: 60px"></div>
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li class="alert-info" style="font-size: 18px">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}

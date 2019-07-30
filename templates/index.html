@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}RssCollector{% endblock %}
+{% block navbar %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container">
+        <div class="page-header">
+            <h3>欢迎使用RssCollector.</h3>
+            <h4>收集信息时需挂代理，否则部分网站无法获取信息。仅使用查询功能时无需挂代理。
+                <button onclick="location.href='{{ url_for('collect') }}'" class="btn btn-warning">信息收集</button>
+                <button onclick="location.href='{{ url_for('query') }}'" class="btn btn-warning">信息查询</button>
+            </h4>
+        </div>
+        <div class="container" style="margin-top: 60px"></div>
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li class="alert-info" style="font-size: 18px">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}
+
